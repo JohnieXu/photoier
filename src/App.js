@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { readImageFile } from './utils/image';
+import { genImage } from './utils/canvas';
 import download from './utils/download';
 import './App.css';
 import domtoimage from 'dom-to-image';
@@ -47,11 +48,16 @@ function App() {
       window.alert('作品还未制作好，请稍后重试');
       return;
     }
-    domtoimage.toJpeg(el).then((dataUrl) => {
-      download(dataUrl, Date.now(), 'image/jpg');
-    }).catch((e) => {
-      window.alert(e.message);
-    });
+    // domtoimage.toJpeg(el).then((dataUrl) => {
+    //   download(dataUrl, Date.now(), 'image/jpg');
+    // }).catch((e) => {
+    //   window.alert(e.message);
+    // });
+    download(genImage({
+      ratio: '4:6',
+      image: document.querySelector('.image'),
+      des: description,
+    }), Date.now(), 'image/jpeg')
   }
 
   return (

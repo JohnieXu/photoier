@@ -31,8 +31,8 @@
   left: 50px;
   width: 300px;
   height: calc(4 / 4 * 300px);
-  background: green;
-  object-fit: cover;
+  background: #efefef;
+  object-fit: contain;
 }
 
 .box .left .preview-box .description {
