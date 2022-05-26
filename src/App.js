@@ -65,7 +65,9 @@ function App() {
       <section className='box'>
         <div className='left'>
           <div className='preview-box'>
-            <img className='image' src={imageSrc} alt=""></img>
+            {
+              imageSrc ? <img className='image' src={imageSrc} alt=""></img> : <div className='image image--default'></div>
+            }
             <div className='description'>{description}</div>
           </div>
           {/* <canvas id="canvas"></canvas> */}
