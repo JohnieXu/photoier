@@ -75,5 +75,14 @@ export const genImage = ({ ratio = '4:6', image, des = '', font = '60px STSongti
       })
     })
   }
+  
+  // 版权
+  const rights = '©JohnieXu ALL RIGHTS RESERVED'
+  ctx.fillStyle = '#666'
+  ctx.font = '20px san-serif'
+  ctx.textBaseline = 'top'
+  ctx.textAlign = 'center'
+  ctx.fillText(rights, width / 2, height - 20 - 140)
+    
   return canvas.toDataURL('image/jpeg', 1.0)
 }
