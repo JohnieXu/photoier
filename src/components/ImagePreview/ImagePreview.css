@@ -1,0 +1,15 @@
+.c-image-preview {
+  width: 400px;
+  height: calc(6 / 4 * 400px);
+  object-fit: contain;
+  background: #fff;
+}
+
+.c-image-preview .image {
+  width: inherit;
+  height: inherit;
+}
+
+.c-image-preview .image--default {
+  background: #fff;
+}

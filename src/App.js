@@ -1,19 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+// import domtoimage from 'dom-to-image';
 import { readImageFile } from './utils/image';
 import { genImage } from './utils/canvas';
 import download from './utils/download';
 import './App.css';
-import domtoimage from 'dom-to-image';
-// import Logo from './logo.svg';
+import ImagePreview from './components/ImagePreview/ImagePreview';
+
+let img = null;
 
 function App() {
-  const [imageSrc, setImageSrc] = useState('');
+  const [imageData, setImageData] = useState('');
   const [description, setDescription] = useState('在这里留下作品的精彩故事吧！');
 
   const onReadImageLoad = () => {}
-  const onReadImageError = () => {}
-  const onReadImageDone = (e) => {
-    console.log(e);
+  const onReadImageError = (e) => {
+    window.alert(e.message);
+  }
+  const onReadImageDone = (data) => {
+    // console.log(data);
+    img = data.img;
+    renderImg();
+  }
+
+  const renderImg = () => {
+    if (!img) {
+      console.error('作品还未制作好，请稍后重试');
+      return;
+    }
+    const imageData = genImage({
+      ratio: '4:6',
+      image: img,
+      des: description,
+    });
+    setImageData(imageData);
   }
 
   const handleImageChange = (e) => {
@@ -22,10 +41,8 @@ function App() {
     const files = e.target.files || [];
     const file = files[0];
     if (file) {
-      const src = URL.createObjectURL(file);
-      setImageSrc(src);
       readImageFile({
-        file: files[0],
+        file,
         onLoad: onReadImageLoad,
         onError: onReadImageError,
       })
@@ -38,44 +55,33 @@ function App() {
   }
   
   const handleDescriptionChange = (e) => {
-    // console.log(e);
     setDescription(e.target.value);
   }
 
   const handleSaveClick = () => {
-    const el = document.querySelector('.preview-box');
-    if (!el) {
-      window.alert('作品还未制作好，请稍后重试');
+    if (!img) {
+      console.error('作品还未制作好，请稍后重试');
       return;
     }
-    // domtoimage.toJpeg(el).then((dataUrl) => {
-    //   download(dataUrl, Date.now(), 'image/jpg');
-    // }).catch((e) => {
-    //   window.alert(e.message);
-    // });
     download(genImage({
       ratio: '4:6',
-      image: document.querySelector('.image'),
+      image: img,
       des: description,
     }), Date.now(), 'image/jpeg')
   }
+
+  useEffect(renderImg, [imageData, description]);
 
   return (
     <div className="app">
       <section className='box'>
         <div className='left'>
-          <div className='preview-box'>
-            {
-              imageSrc ? <img className='image' src={imageSrc} alt=""></img> : <div className='image image--default'></div>
-            }
-            <div className='description'>{description}</div>
-          </div>
-          {/* <canvas id="canvas"></canvas> */}
+          <ImagePreview src={imageData}></ImagePreview>
         </div>
         <div className='right'>
           <div className='content'>
             <input className='line choose' type='file' accept='image/*' onChange={handleImageChange}></input>
-            <textarea className='line description' type='textarea' onChange={handleDescriptionChange}></textarea>
+            <textarea className='line description' type='textarea' onChange={handleDescriptionChange} value={description}></textarea>
             <button className='line save' onClick={handleSaveClick}>保存作品</button>
           </div>
         </div>

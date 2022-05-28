@@ -2,6 +2,14 @@ import EXIF from "./exif";
 
 function noop() {}
 
+/**
+ * 图片图片 base64 数据（会压缩图片大小）
+ * @param {Object} param0 data
+ * @param {File} param0.file 图片文件
+ * @param {Function} param0.onLoad 读取图片成功回调
+ * @param {Function} param0.onError 读取图片失败回调
+ * @returns Promise<string>
+ */
 export const readImageFile = ({ file, onLoad = noop, onError = noop }) => {
   return new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -75,6 +83,12 @@ const choosePhoto = (result) => {
   });
 };
 
+/**
+ * 压缩并处理图片旋转问题
+ * @param {HTMLImageElement} img 图片
+ * @param {String} Orientation 方向
+ * @returns 图片 base64 数据
+ */
 const compress = (img, Orientation) => {
   let canvas = document.createElement("canvas");
   // let ctx = canvas.getContext("2d");
@@ -107,6 +121,13 @@ const compress = (img, Orientation) => {
   }
 };
 
+/**
+ * 旋转图片
+ * @param {HTHTMLImageElementML} img 图片
+ * @param {String} direction 方向
+ * @param {HTMLCanvasElement} canvas canvas
+ * @returns 图片 base64 数据
+ */
 const rotateImg = (img, direction, canvas) => {
   //最小与最大旋转方向，图片旋转4次后回到原方向
   const min_step = 0;

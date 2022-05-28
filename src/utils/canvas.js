@@ -14,6 +14,11 @@ const getInnerRatio = (str, defaultRatio = 1/1) => {
 
 /**
  * 使用 canvas 合成生成图片 base64 数据
+ * @param {Object} param0
+ * @param {String} param0.ratio 图片比例
+ * @param {CanvasImageSource} image 图片
+ * @param {String} des 描述文字
+ * @param {String} font 描述文字样式
  */
 export const genImage = ({ ratio = '4:6', image, des = '', font = '60px STSongti-SC-Bold' } = {}) => {
   const baseHeight = 2000 // 基础宽度（像素）
