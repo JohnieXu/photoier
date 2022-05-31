@@ -31,6 +31,7 @@ function App() {
       ratio: '4:6',
       image: img,
       des: description,
+      font: '60px STSongti-SC-Regular'
     });
     setImageData(imageData);
   }
@@ -67,6 +68,7 @@ function App() {
       ratio: '4:6',
       image: img,
       des: description,
+      font: '60px STSongti-SC-Regular'
     }), Date.now(), 'image/jpeg')
   }
 
