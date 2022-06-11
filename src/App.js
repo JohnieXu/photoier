@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 // import domtoimage from 'dom-to-image';
 import { readImageFile } from './utils/image';
-import { genImage } from './utils/canvas';
+import { genImage, genImageV2 } from './utils/canvas';
 import download from './utils/download';
 import './App.css';
 import ImagePreview from './components/ImagePreview/ImagePreview';
@@ -27,7 +27,7 @@ function App() {
       console.error('作品还未制作好，请稍后重试');
       return;
     }
-    const imageData = genImage({
+    const imageData = genImageV2({
       ratio: '4:6',
       image: img,
       des: description,
@@ -64,7 +64,7 @@ function App() {
       console.error('作品还未制作好，请稍后重试');
       return;
     }
-    download(genImage({
+    download(genImageV2({
       ratio: '4:6',
       image: img,
       des: description,
