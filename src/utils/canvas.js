@@ -2,6 +2,7 @@
  * 常用比例
  */
 export class Ratio {
+  static 11 = '1:1'
   static 46 = '4:6'
   static 64 = '6:4'
   static 169 = '16:9'
@@ -99,7 +100,7 @@ class ImageRender {
     fillStyle = '#666',
     font = '20px san-serif',
     textAlign = 'center'
-  }) {
+  } = {}) {
     const ctx = this.canvasCtx
     ctx.fillStyle = fillStyle
     ctx.font = font
@@ -133,7 +134,7 @@ export const genImageV2 = ({ ratio = Ratio[46], image, des = '', font = '60px ST
     padding: 140,
   })
   console.log(imageRender)
-  const base64 = imageRender.renderBackground().renderImage({ ratio: Ratio[46], image }).renderText(des, { font }).render()
+  const base64 = imageRender.renderBackground().renderImage({ ratio: Ratio[11], image }).renderText(des, { font }).renderRights().render()
   return base64
 }
 
